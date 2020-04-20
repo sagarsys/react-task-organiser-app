@@ -37,18 +37,6 @@ module.exports = {
             javascriptEnabled: true,
           },
         }],
-      },
-      {
-        test: /\.scss$/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader', // translates CSS into CommonJS
-        }, {
-          loader: 'sass-loader', // compiles SCSS to CSS
-        }, {
-          loader: 'postcss-loader'
-        }],
       }
     ]
   }
