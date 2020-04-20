@@ -1,0 +1,49 @@
+{
+  "name": "react-task-organiser-app",
+  "version": "1.0.0",
+  "description": "Full stack task organiser app built using react, node and express",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack",
+    "dev": "webpack-dev-server --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagarsys/react-task-organiser-app.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript",
+    "react",
+    "mongodb",
+    "fullstack"
+  ],
+  "author": "sagarsys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagarsys/react-task-organiser-app/issues"
+  },
+  "homepage": "https://github.com/sagarsys/react-task-organiser-app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/register": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-import": "^1.13.0",
+    "css-loader": "^3.5.2",
+    "less-loader": "^5.0.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.4",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "antd": "^4.1.4"
+  }
+}
