@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { DatePicker, message } from 'antd';
 import './index.less';
+import { store } from './store';
 
+console.log(store.getState());
 
 const App = () => {
   const [ date, setDate ] = useState(null);
