@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { defaultState } from '../../server/default-state'
 import { createLogger } from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
-import * as sagas from './sagas.mock'
+import * as sagas from './sagas'
 import * as mutations from './mutations'
 
 const sagaMiddleware = createSagaMiddleware();
