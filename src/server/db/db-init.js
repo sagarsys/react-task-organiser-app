@@ -1,4 +1,4 @@
-import { defaultState } from './default-state'
+import { defaultState } from '../default-state'
 import { dbConnect } from './db-connect'
 
 async function initializeDb() {
