@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { requestTaskCreation } from '../store/mutations'
 import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 
 export const TaskList = ({ tasks, name, id, createNewTask }) => (
     <div>
@@ -13,7 +14,7 @@ export const TaskList = ({ tasks, name, id, createNewTask }) => (
             </Link>
         ))}
       </div>
-      <button onClick={() => createNewTask(id)}>New task</button>
+      <Button type="primary" onClick={() => createNewTask(id)}>New task</Button>
     </div>
 );
 

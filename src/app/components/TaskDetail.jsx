@@ -1,23 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import * as mutations from '../store/mutations'
+import { Button, Input, Select } from 'antd'
 
-const TaskDetail = ({ id, comments, groups, task, isComplete }) => (
+const { Option } = Select
+
+const TaskDetail = ({ id, comments, groups, task, isComplete, setTaskStatus, setTaskGroup, setTaskName }) => (
     <div>
       <div>
-        <input value={task.name}/>
+        <Input value={task.name} onChange={({ target: { value }}) => setTaskName(id, value)}/>
       </div>
       <div>
-        <button>Toggle completion</button>
+        <Button onClick={() => setTaskStatus(id, !isComplete)}>
+          {isComplete ? 'Reopen' : 'Complete'}
+        </Button>
       </div>
       <div>
-        <select>
-          {groups.map(group => (<option value={group.id} key={group.id}>{group.name}</option>))}
-        </select>
+        <Select defaultValue={task.group} style={{ width: 120 }} onChange={(groupId) => setTaskGroup(id, groupId)}>
+          {groups.map(group => (<Option value={group.id} key={group.id}>{group.name}</Option>))}
+        </Select>
       </div>
       <div>
         <Link to="/dashboard">
-          <button>Done</button>
+          <Button type="link">Done</Button>
         </Link>
       </div>
     </div>
@@ -25,11 +31,28 @@ const TaskDetail = ({ id, comments, groups, task, isComplete }) => (
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params
-  const { tasks, groups, isComplete } = state
+  const { tasks, groups } = state
   const task = tasks.find(t => t.id === id)
   return {
-    id, task, groups, isComplete
+    id,
+    task,
+    groups,
+    isComplete: task.isComplete
   }
 }
 
-export const ConnectedTaskDetail = connect(mapStateToProps)(TaskDetail)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setTaskStatus(id, isComplete) {
+      dispatch(mutations.setTaskStatus(id, isComplete))
+    },
+    setTaskGroup(id, groupId) {
+      dispatch(mutations.setTaskGroup(id, groupId))
+    },
+    setTaskName(id, name) {
+      dispatch(mutations.setTaskName(id, name))
+    }
+  }
+}
+
+export const ConnectedTaskDetail = connect(mapStateToProps, mapDispatchToProps)(TaskDetail)
