@@ -1,4 +1,7 @@
 export const defaultState = {
+  session: {
+    authenticated: true
+  },
   users: [{
     id: 'U1',
     name: 'root'
