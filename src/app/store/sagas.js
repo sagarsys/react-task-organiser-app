@@ -1,20 +1,22 @@
-import { take, put, select } from 'redux-saga/effects'
+import { put, select, take } from 'redux-saga/effects'
 import { v4 as uuid } from 'uuid'
 import axios from 'axios'
 import * as mutations from './mutations'
+import { history } from './history'
 
 const serverUrl = 'http://localhost:7777'
 
 export function* taskCreationSaga() {
   while (true) {
     const { groupId } = yield take(mutations.REQUEST_TASK_CREATION)
-    const ownerId = `U1`
+    const ownerId = yield select((state) => state.session.id)
     const taskId = uuid()
-    yield put(mutations.createTask(taskId, groupId, ownerId))
+    const taskName = 'New task from react app'
+    yield put(mutations.createTask(taskId, taskName, groupId, ownerId))
     const { res } = yield axios.post(`${serverUrl}/task`, {
       task: {
         id: taskId,
-        name: 'New task from react app',
+        name: taskName,
         group: groupId,
         owner: ownerId,
         isComplete: false,
@@ -50,15 +52,19 @@ export function* userAuthenticationSaga() {
       mutations.REQUEST_USER_AUTHENTICATION
     )
     try {
-      const { data } = yield axios.post(`${url}/authenticate`, {
+      const { data } = yield axios.post(`${serverUrl}/authenticate`, {
         username,
         password,
       })
       if (!data) throw new Error('No data from server')
+      console.log('AUTHENTICATED', data)
+      yield put(mutations.setAppState(data.state))
+      yield put(mutations.setUserAuthenticationStatus(mutations.AUTHENTICATED))
+      history.push('/dashboard')
     } catch (e) {
       console.log(`Error authenticating: \n${e}`)
       yield put(
-        mutations.processUserAuthentication(mutations.NOT_AUTHENTICATED)
+        mutations.setUserAuthenticationStatus(mutations.NOT_AUTHENTICATED)
       )
     }
   }

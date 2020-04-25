@@ -10,14 +10,19 @@ const sagaMiddleware = createSagaMiddleware()
 export const store = createStore(
   combineReducers({
     session(userSession = defaultState.session || {}, action) {
-      const { type, authenticated, session } = action
+      const { type, authenticated, session, state } = action
       switch (type) {
+        case mutations.SET_APP_STATE:
+          return {
+            ...userSession,
+            id: state.session.id,
+          }
         case mutations.REQUEST_USER_AUTHENTICATION:
           return {
             ...userSession,
             authenticated: mutations.AUTHENTICATING,
           }
-        case mutations.PROCESSING_USER_AUTHENTICATION:
+        case mutations.SET_USER_AUTHENTICATION_STATUS:
           return {
             ...userSession,
             authenticated,
@@ -26,15 +31,19 @@ export const store = createStore(
           return userSession
       }
     },
-    tasks(tasks = defaultState.tasks, action) {
+    tasks(tasks = [], action) {
       switch (action.type) {
+        case mutations.SET_APP_STATE: {
+          const { state } = action
+          return state.tasks
+        }
         case mutations.CREATE_TASK: {
-          const { taskId, groupId, ownerId } = action
+          const { taskId, taskName, groupId, ownerId } = action
           return [
             ...tasks,
             {
               id: taskId,
-              name: 'New task',
+              name: taskName,
               group: groupId,
               owner: ownerId,
               isComplete: false,
@@ -71,13 +80,20 @@ export const store = createStore(
       }
       return tasks
     },
-    comments(comments = defaultState.comments, action) {
+    comments(comments = [], action) {
       return comments
     },
-    groups(groups = defaultState.groups, action) {
-      return groups
+    groups(groups = [], action) {
+      switch (action.type) {
+        case mutations.SET_APP_STATE: {
+          const { state } = action
+          return state.groups
+        }
+        default:
+          return groups
+      }
     },
-    users(users = defaultState.users, action) {
+    users(users = [], action) {
       return users
     },
   }),
