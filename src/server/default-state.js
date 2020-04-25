@@ -1,19 +1,22 @@
+import md5 from 'md5'
+
 export const defaultState = {
-  session: {
-    authenticated: true
-  },
   users: [{
     id: 'U1',
-    name: 'root'
+    name: 'root',
+    passwordHash: md5('TUPLES')
   }, {
     id: 'U2',
-    name: 'sagar'
+    name: 'sagar',
+    passwordHash: md5('COLUMNS')
   }, {
     id: 'U3',
-    name: 'dev'
+    name: 'dev',
+    passwordHash: md5('PRODUCTION')
   }, {
     id: 'U4',
-    name: 'test'
+    name: 'test',
+    passwordHash: md5('STAGING')
   }],
   groups: [{
     name: 'TODO',
