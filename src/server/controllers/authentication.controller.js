@@ -9,13 +9,13 @@ const authenticationTokens = []
 authenticationRouter.post('/', async (req, res) => {
   const { username, password } = req.body
   const user = await AuthenticationController.findUser(username)
-  if (!user) res.status(404).send(`Invalid credentials`)
+  if (!user) return res.status(404).send(`Invalid credentials`)
 
   const isPasswordCorrect = AuthenticationController.checkUserPassword(
     user,
     password
   )
-  if (!isPasswordCorrect) res.status(400).send(`Invalid credentials`)
+  if (!isPasswordCorrect) return res.status(400).send(`Invalid credentials`)
 
   const token = uuid()
   AuthenticationController.updateUserToken(user, token)
