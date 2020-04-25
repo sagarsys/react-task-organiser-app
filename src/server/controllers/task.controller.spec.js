@@ -1,5 +1,4 @@
 import { TaskController } from './task.controller'
-
 ;(async () => {
   const now = Date.now()
   const taskId = `T${now}`
