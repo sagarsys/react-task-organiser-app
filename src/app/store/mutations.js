@@ -11,42 +11,45 @@ export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED'
 
 export const requestTaskCreation = (groupId) => ({
   type: REQUEST_TASK_CREATION,
-  groupId
+  groupId,
 })
 
 export const createTask = (taskId, groupId, ownerId) => ({
   type: CREATE_TASK,
   taskId,
   groupId,
-  ownerId
+  ownerId,
 })
 
 export const setTaskStatus = (id, isComplete) => ({
   type: SET_TASK_STATUS,
   taskId: id,
-  isComplete
+  isComplete,
 })
 
 export const setTaskGroup = (id, groupId) => ({
   type: SET_TASK_GROUP,
   taskId: id,
-  groupId
+  groupId,
 })
 
 export const setTaskName = (id, name) => ({
   type: SET_TASK_NAME,
   taskId: id,
-  name
+  name,
 })
 
 export const requestUserAuthentication = (username, password) => ({
   type: REQUEST_USER_AUTHENTICATION,
   username,
-  password
+  password,
 })
 
-export const processUserAuthentication = (status = AUTHENTICATING, session = null) => ({
+export const processUserAuthentication = (
+  status = AUTHENTICATING,
+  session = null
+) => ({
   type: PROCESSING_USER_AUTHENTICATION,
   session,
-  authenticated: status
+  authenticated: status,
 })

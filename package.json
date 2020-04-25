@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "init-db": "babel-node src/server/db/db-init.js",
     "server": "babel-node src/server/server.js",
-    "task-test": "babel-node src/server/controllers/task.controller.spec.js"
+    "task-test": "babel-node src/server/controllers/task.controller.spec.js",
+    "prettier": "prettier --no-semi --single-quote --write  ./src --ignore-path"
   },
   "repository": {
     "type": "git",
