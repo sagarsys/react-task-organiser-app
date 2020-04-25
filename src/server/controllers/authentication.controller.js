@@ -44,10 +44,7 @@ export const AuthenticationController = {
       .collection(`tasks`)
       .find({ owner: user.id })
       .toArray()
-    const groups = await db
-      .collection(`groups`)
-      .find({ owner: user.id })
-      .toArray()
+    const groups = await db.collection(`groups`).find({}).toArray()
     return {
       tasks,
       groups,
