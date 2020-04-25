@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import taskRouter from './controllers/task.controller'
+import './db/db-init'
 
 const port = 7777
 const app = express()
