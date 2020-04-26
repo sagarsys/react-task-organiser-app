@@ -33,11 +33,7 @@
   },
   "homepage": "https://github.com/sagarsys/react-task-organiser-app#readme",
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@babel/register": "^7.9.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.0",
     "body-parser": "^1.19.0",
@@ -59,6 +55,10 @@
   "dependencies": {
     "antd": "^4.1.4",
     "axios": "^0.19.2",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/register": "^7.9.0",
     "history": "^4.10.1",
     "md5": "^2.2.1",
     "react": "^16.13.1",
