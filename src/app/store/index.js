@@ -82,7 +82,14 @@ export const store = createStore(
       return tasks
     },
     comments(comments = [], action) {
-      return comments
+      switch (action.type) {
+        case mutations.SET_APP_STATE: {
+          const { state } = action
+          return state.comments
+        }
+        default:
+          return comments
+      }
     },
     groups(groups = [], action) {
       switch (action.type) {

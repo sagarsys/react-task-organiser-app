@@ -45,9 +45,14 @@ export const AuthenticationController = {
       .find({ owner: user.id })
       .toArray()
     const groups = await db.collection(`groups`).find({}).toArray()
+    const comments = await db
+      .collection(`comments`)
+      .find({ task: { $in: tasks.map((task) => task.id) } })
+      .toArray()
     return {
       tasks,
       groups,
+      comments,
       session: {
         id: user.id,
         username: user.name,
