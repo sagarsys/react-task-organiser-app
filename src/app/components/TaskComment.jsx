@@ -5,8 +5,12 @@ import * as mutations from '../store/mutations'
 
 const { TextArea } = Input
 
-export const TaskComment = ({ comments, addComment }) => {
+export const TaskComment = ({ comments, requestAddComment }) => {
   const [comment, setComment] = useState('')
+  const addComment = (comment) => {
+    requestAddComment(comment)
+    setComment('')
+  }
   return (
     <Card
       actions={[
@@ -58,7 +62,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addComment: (comment) => {
+  requestAddComment: (comment) => {
     if (!comment) return
     const { taskId } = ownProps
     console.log('Add comment', { taskId, comment })
