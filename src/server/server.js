@@ -6,6 +6,7 @@ import path from 'path'
 import './db/db-init'
 import taskRouter from './controllers/task.controller'
 import authenticationRouter from './controllers/authentication.controller'
+import commentRouter from './controllers/comment.controller'
 
 const port = process.env.PORT || 7777
 const app = express()
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 app.use('/task', taskRouter)
 app.use('/authenticate', authenticationRouter)
+app.use('/comment', commentRouter)
 
 if (process.env.NODE_ENV === `production`) {
   app.use(express.static(path.resolve(__dirname, `../../dist`)))
