@@ -20,7 +20,15 @@ const TaskDetail = ({
   setTaskName,
 }) => (
   <Layout>
-    <Card title="Task details" className="w-100">
+    <Card
+      title="Task details"
+      className="w-100"
+      actions={[
+        <Link to="/dashboard">
+          <Button type="link">Done</Button>
+        </Link>,
+      ]}
+    >
       <Space direction="vertical" className="w-100">
         <TextArea
           autoSize
@@ -48,9 +56,6 @@ const TaskDetail = ({
             onClick={() => setTaskStatus(id, !isComplete)}
           />
         </Space>
-        <Link to="/dashboard">
-          <Button type="link">Done</Button>
-        </Link>
       </Space>
     </Card>
     <ConnectedTaskComment taskId={id} />
