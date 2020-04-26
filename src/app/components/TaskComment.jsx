@@ -43,12 +43,10 @@ export const TaskComment = ({ comments, requestAddComment }) => {
   )
 }
 const mapStateToProps = (state, ownProps) => {
-  const { taskId } = ownProps
-  const userComments = state.comments.filter(
-    (comment) => comment.task === taskId
-  )
+  const { taskId, comments } = ownProps
+  const taskComments = comments.filter((comment) => comment.task === taskId)
   const { users } = state
-  const comments = userComments.map((comment) => {
+  const userComments = taskComments.map((comment) => {
     const userId = comment.owner
     const user = users.find((u) => u.id === userId)
     return {
@@ -57,7 +55,7 @@ const mapStateToProps = (state, ownProps) => {
     }
   })
   return {
-    comments,
+    comments: userComments,
   }
 }
 

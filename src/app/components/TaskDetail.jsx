@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as mutations from '../store/mutations'
-import { Button, Card, Input, Layout, Select, Space, Switch } from 'antd'
+import { Button, Card, Input, Select, Space, Switch } from 'antd'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { ConnectedTaskComment } from './TaskComment'
 
@@ -19,16 +19,15 @@ const TaskDetail = ({
   setTaskGroup,
   setTaskName,
 }) => (
-  <Layout>
-    <Card
-      title="Task details"
-      className="w-100"
-      actions={[
-        <Link to="/dashboard">
-          <Button type="link">Done</Button>
-        </Link>,
-      ]}
-    >
+  <Card
+    className="w-100"
+    actions={[
+      <Link to="/dashboard">
+        <Button type="link">Done</Button>
+      </Link>,
+    ]}
+  >
+    <Card title="Task details" className="w-100">
       <Space direction="vertical" className="w-100">
         <TextArea
           autoSize
@@ -58,18 +57,19 @@ const TaskDetail = ({
         </Space>
       </Space>
     </Card>
-    <ConnectedTaskComment taskId={id} />
-  </Layout>
+    <ConnectedTaskComment taskId={id} comments={comments} />
+  </Card>
 )
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params
-  const { tasks, groups } = state
+  const { tasks, groups, comments } = state
   const task = tasks.find((t) => t.id === id)
   return {
     id,
     task,
     groups,
+    comments,
     isComplete: task.isComplete,
   }
 }
