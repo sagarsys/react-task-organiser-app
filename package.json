@@ -4,7 +4,8 @@
   "description": "Full stack task organiser app built using react, node and express",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
+    "start": "npm run server",
+    "build": "webpack -p",
     "dev": "webpack-dev-server --open",
     "start-dev": "concurrently \"npm run server\" \"npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",

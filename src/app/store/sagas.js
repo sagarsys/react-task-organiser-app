@@ -4,7 +4,8 @@ import axios from 'axios'
 import * as mutations from './mutations'
 import { history } from './history'
 
-const serverUrl = 'http://localhost:7777'
+const isProd = process.env.NODE_ENV === `production`
+const serverUrl = isProd ? `` : `http://localhost:7777`
 
 export function* taskCreationSaga() {
   while (true) {
