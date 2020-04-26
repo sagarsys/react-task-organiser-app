@@ -16,7 +16,12 @@ export const Navigation = ({ authenticated }) => (
       <Menu.Item key="2">
         <Link to="/dashboard">Dashboard</Link>
       </Menu.Item>
-      <Menu.Item key="1" className="right" selectable={false}>
+      <Menu.Item
+        disabled={authenticated}
+        key="1"
+        className="right"
+        selectable={false}
+      >
         <Link to="/">Login</Link>
       </Menu.Item>
     </Menu>
