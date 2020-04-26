@@ -1,24 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { requestTaskCreation } from '../store/mutations'
 import { Link } from 'react-router-dom'
-import { Button, Card, Col } from 'antd'
+import { Button, Card, Col, Input } from 'antd'
 
-export const TaskList = ({ tasks, name, id, createNewTask }) => (
-  <Col span={8}>
-    <Card title={name}>
-      {tasks.map((task) => (
-        <Link to={`/task/${task.id}`} key={task.id}>
-          <div>{task.name}</div>
-        </Link>
-      ))}
-      <Button className="mt-1" type="primary" onClick={() => createNewTask(id)}>
-        New task
-      </Button>
-    </Card>
-  </Col>
-)
+const { TextArea } = Input
 
+export const TaskList = ({ tasks, name, id, createNewTask }) => {
+  const [newTaskName, setNewTaskName] = useState('')
+  const onAddTask = () => {
+    createNewTask(id, newTaskName)
+    setNewTaskName('')
+  }
+  return (
+    <Col span={8}>
+      <Card
+        title={name}
+        actions={[
+          <Button type="primary" onClick={onAddTask}>
+            Add task
+          </Button>,
+        ]}
+      >
+        {tasks.map((task) => (
+          <Link to={`/task/${task.id}`} key={task.id}>
+            <div>{task.name}</div>
+          </Link>
+        ))}
+        <TextArea
+          autoSize
+          value={newTaskName}
+          placeholder="Enter task name"
+          className="mt-1"
+          onChange={({ target: { value } }) => setNewTaskName(value)}
+        />
+      </Card>
+    </Col>
+  )
+}
 const mapStateToProps = (state, ownProps) => {
   const { id, name } = ownProps
   return {
@@ -30,9 +49,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createNewTask: (id) => {
+    createNewTask: (id, name) => {
+      if (!name) return
       console.log('Creating new task', id)
-      dispatch(requestTaskCreation(id))
+      dispatch(requestTaskCreation(id, name))
     },
   }
 }

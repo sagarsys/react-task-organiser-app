@@ -12,9 +12,10 @@ export const SET_APP_STATE = 'SET_APP_STATE'
 export const REQUEST_ADD_COMMENT = 'REQUEST_ADD_COMMENT'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 
-export const requestTaskCreation = (groupId) => ({
+export const requestTaskCreation = (groupId, taskName) => ({
   type: REQUEST_TASK_CREATION,
   groupId,
+  taskName,
 })
 
 export const createTask = (taskId, taskName, groupId, ownerId) => ({

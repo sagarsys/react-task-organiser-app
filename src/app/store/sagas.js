@@ -9,10 +9,9 @@ const serverUrl = isProd ? `` : `http://localhost:7777`
 
 export function* taskCreationSaga() {
   while (true) {
-    const { groupId } = yield take(mutations.REQUEST_TASK_CREATION)
+    const { groupId, taskName } = yield take(mutations.REQUEST_TASK_CREATION)
     const ownerId = yield select((state) => state.session.id)
     const taskId = uuid()
-    const taskName = 'New task from react app'
     yield put(mutations.createTask(taskId, taskName, groupId, ownerId))
     yield axios.post(`${serverUrl}/task`, {
       task: {
