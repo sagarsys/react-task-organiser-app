@@ -16,6 +16,7 @@ export const store = createStore(
           return {
             ...userSession,
             id: state.session.id,
+            username: state.session.username,
           }
         case mutations.REQUEST_USER_AUTHENTICATION:
           return {

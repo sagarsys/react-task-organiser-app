@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import * as mutations from '../store/mutations'
+import { ConnectedUsername } from './Username'
+
 const { Header } = Layout
 
 export const Navigation = ({ authenticated }) => (
@@ -12,17 +14,17 @@ export const Navigation = ({ authenticated }) => (
       mode="horizontal"
       selectable={false}
       selectedKeys={authenticated ? ['2'] : ['1']}
+      style={{ display: 'flex' }}
     >
       <Menu.Item key="2">
         <Link to="/dashboard">Dashboard</Link>
       </Menu.Item>
       <Menu.Item
-        disabled={authenticated}
         key="1"
-        className="right"
         selectable={false}
+        style={{ marginLeft: 'auto' }}
       >
-        <Link to="/">Login</Link>
+        {authenticated ? <ConnectedUsername /> : <Link to="/">Login</Link>}
       </Menu.Item>
     </Menu>
   </Header>

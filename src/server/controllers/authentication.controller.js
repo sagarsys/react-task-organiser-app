@@ -50,6 +50,7 @@ export const AuthenticationController = {
       groups,
       session: {
         id: user.id,
+        username: user.name,
         authenticated: `AUTHENTICATED`,
       },
     }
