@@ -2,22 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { requestTaskCreation } from '../store/mutations'
 import { Link } from 'react-router-dom'
-import { Button } from 'antd'
+import { Button, Card, Col } from 'antd'
 
 export const TaskList = ({ tasks, name, id, createNewTask }) => (
-  <div>
-    <h3>{name}</h3>
-    <div>
+  <Col span={8}>
+    <Card title={name}>
       {tasks.map((task) => (
         <Link to={`/task/${task.id}`} key={task.id}>
           <div>{task.name}</div>
         </Link>
       ))}
-    </div>
-    <Button type="primary" onClick={() => createNewTask(id)}>
-      New task
-    </Button>
-  </div>
+      <Button className="mt-1" type="primary" onClick={() => createNewTask(id)}>
+        New task
+      </Button>
+    </Card>
+  </Col>
 )
 
 const mapStateToProps = (state, ownProps) => {

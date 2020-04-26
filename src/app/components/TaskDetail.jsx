@@ -2,8 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as mutations from '../store/mutations'
-import { Button, Input, Select } from 'antd'
+import { Button, Card, Input, Select, Space, Switch } from 'antd'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 
+const { TextArea } = Input
 const { Option } = Select
 
 const TaskDetail = ({
@@ -16,37 +18,39 @@ const TaskDetail = ({
   setTaskGroup,
   setTaskName,
 }) => (
-  <div>
-    <div>
-      <Input
+  <Card title="Task details" className="w-100">
+    <Space direction="vertical" className="w-100">
+      <TextArea
+        autoSize
         value={task.name}
         onChange={({ target: { value } }) => setTaskName(id, value)}
       />
-    </div>
-    <div>
-      <Button onClick={() => setTaskStatus(id, !isComplete)}>
-        {isComplete ? 'Reopen' : 'Complete'}
-      </Button>
-    </div>
-    <div>
-      <Select
-        defaultValue={task.group}
-        style={{ width: 120 }}
-        onChange={(groupId) => setTaskGroup(id, groupId)}
-      >
-        {groups.map((group) => (
-          <Option value={group.id} key={group.id}>
-            {group.name}
-          </Option>
-        ))}
-      </Select>
-    </div>
-    <div>
+      <Space direction="horizontal">
+        <Select
+          defaultValue={task.group}
+          style={{ width: 120, marginRight: 30 }}
+          onChange={(groupId) => setTaskGroup(id, groupId)}
+        >
+          {groups.map((group) => (
+            <Option value={group.id} key={group.id}>
+              {group.name}
+            </Option>
+          ))}
+        </Select>
+
+        <label style={{ marginLeft: 15 }}>Completed</label>
+        <Switch
+          defaultChecked={isComplete}
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          onClick={() => setTaskStatus(id, !isComplete)}
+        />
+      </Space>
       <Link to="/dashboard">
         <Button type="link">Done</Button>
       </Link>
-    </div>
-  </div>
+    </Space>
+  </Card>
 )
 
 const mapStateToProps = (state, ownProps) => {
