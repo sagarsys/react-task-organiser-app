@@ -30,7 +30,7 @@ export const Login = ({ authenticated, authenticateUser }) => {
           )}
           <Button
             type="primary"
-            className="center-block"
+            className="center-block mt-1"
             loading={authenticated === mutations.AUTHENTICATING}
             onClick={() => authenticateUser(username, password)}
           >
