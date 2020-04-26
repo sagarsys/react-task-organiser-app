@@ -86,6 +86,18 @@ export const store = createStore(
           const { state } = action
           return state.comments
         }
+        case mutations.CREATE_COMMENT: {
+          const { commentId, task, comment, owner } = action
+          return [
+            ...comments,
+            {
+              id: commentId,
+              task,
+              content: comment,
+              owner,
+            },
+          ]
+        }
         default:
           return comments
       }

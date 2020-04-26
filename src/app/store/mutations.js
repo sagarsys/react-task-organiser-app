@@ -9,6 +9,8 @@ export const AUTHENTICATING = 'AUTHENTICATING'
 export const AUTHENTICATED = 'AUTHENTICATED'
 export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED'
 export const SET_APP_STATE = 'SET_APP_STATE'
+export const REQUEST_ADD_COMMENT = 'REQUEST_ADD_COMMENT'
+export const CREATE_COMMENT = 'CREATE_COMMENT'
 
 export const requestTaskCreation = (groupId) => ({
   type: REQUEST_TASK_CREATION,
@@ -59,4 +61,18 @@ export const setUserAuthenticationStatus = (
 export const setAppState = (state = {}) => ({
   type: SET_APP_STATE,
   state,
+})
+
+export const requestAddComment = (task, comment) => ({
+  type: REQUEST_ADD_COMMENT,
+  task,
+  comment,
+})
+
+export const createComment = (commentId, task, comment, owner) => ({
+  type: CREATE_COMMENT,
+  commentId,
+  task,
+  comment,
+  owner,
 })

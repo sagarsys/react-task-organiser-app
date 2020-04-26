@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as mutations from '../store/mutations'
-import { Button, Card, Input, Select, Space, Switch } from 'antd'
+import { Button, Card, Input, Layout, Select, Space, Switch } from 'antd'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { ConnectedTaskComment } from './TaskComment'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -18,39 +19,42 @@ const TaskDetail = ({
   setTaskGroup,
   setTaskName,
 }) => (
-  <Card title="Task details" className="w-100">
-    <Space direction="vertical" className="w-100">
-      <TextArea
-        autoSize
-        value={task.name}
-        onChange={({ target: { value } }) => setTaskName(id, value)}
-      />
-      <Space direction="horizontal">
-        <Select
-          defaultValue={task.group}
-          style={{ width: 120, marginRight: 30 }}
-          onChange={(groupId) => setTaskGroup(id, groupId)}
-        >
-          {groups.map((group) => (
-            <Option value={group.id} key={group.id}>
-              {group.name}
-            </Option>
-          ))}
-        </Select>
-
-        <label style={{ marginLeft: 15 }}>Completed</label>
-        <Switch
-          defaultChecked={isComplete}
-          checkedChildren={<CheckOutlined />}
-          unCheckedChildren={<CloseOutlined />}
-          onClick={() => setTaskStatus(id, !isComplete)}
+  <Layout>
+    <Card title="Task details" className="w-100">
+      <Space direction="vertical" className="w-100">
+        <TextArea
+          autoSize
+          value={task.name}
+          onChange={({ target: { value } }) => setTaskName(id, value)}
         />
+        <Space direction="horizontal">
+          <Select
+            defaultValue={task.group}
+            style={{ width: 120, marginRight: 30 }}
+            onChange={(groupId) => setTaskGroup(id, groupId)}
+          >
+            {groups.map((group) => (
+              <Option value={group.id} key={group.id}>
+                {group.name}
+              </Option>
+            ))}
+          </Select>
+
+          <label style={{ marginLeft: 15 }}>Completed</label>
+          <Switch
+            defaultChecked={isComplete}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+            onClick={() => setTaskStatus(id, !isComplete)}
+          />
+        </Space>
+        <Link to="/dashboard">
+          <Button type="link">Done</Button>
+        </Link>
       </Space>
-      <Link to="/dashboard">
-        <Button type="link">Done</Button>
-      </Link>
-    </Space>
-  </Card>
+    </Card>
+    <ConnectedTaskComment taskId={id} />
+  </Layout>
 )
 
 const mapStateToProps = (state, ownProps) => {

@@ -14,7 +14,7 @@ export function* taskCreationSaga() {
     const taskId = uuid()
     const taskName = 'New task from react app'
     yield put(mutations.createTask(taskId, taskName, groupId, ownerId))
-    const { res } = yield axios.post(`${serverUrl}/task`, {
+    yield axios.post(`${serverUrl}/task`, {
       task: {
         id: taskId,
         name: taskName,
@@ -23,7 +23,6 @@ export function* taskCreationSaga() {
         isComplete: false,
       },
     })
-    console.log('POST success', res)
   }
 }
 
@@ -68,5 +67,22 @@ export function* userAuthenticationSaga() {
         mutations.setUserAuthenticationStatus(mutations.NOT_AUTHENTICATED)
       )
     }
+  }
+}
+
+export function* commentCreationSaga() {
+  while (true) {
+    const { task, comment } = yield take(mutations.REQUEST_ADD_COMMENT)
+    const commentId = uuid()
+    const owner = yield select((state) => state.session.id)
+    yield put(mutations.createComment(commentId, task, comment, owner))
+    yield axios.post(`${serverUrl}/comment`, {
+      comment: {
+        id: commentId,
+        content: comment,
+        task,
+        owner,
+      },
+    })
   }
 }
